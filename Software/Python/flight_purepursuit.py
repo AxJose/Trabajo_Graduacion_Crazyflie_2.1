@@ -116,10 +116,7 @@ def on_message(client, userdata, msg):
         mocap_pose['z'] = float(pos['z'])
 
         # -------------------------------------------------------
-        # DIAGNÓSTICO DEL CUATERNIÓN — sin afectar el vuelo
-        # Gira el drone físicamente y observa si el yaw_deg cambia
-        # de forma consistente con el movimiento real.
-        # Cuando confirmes que es correcto, puedes usar send_extpose.
+        # DIAGNÓSTICO DEL CUATERNIÓN
         # -------------------------------------------------------
         if 'rotation' in data['payload']['pose']:
             rot = data['payload']['pose']['rotation']
@@ -137,14 +134,8 @@ def on_message(client, userdata, msg):
             # Guardar en mocap_pose para Pure Pursuit
             mocap_pose['yaw'] = np.radians(yaw_deg)
 
-            # Imprimir cada ~1s para no saturar consola
-            # (el MoCap manda ~1Hz según tus logs anteriores)
-            # print(f"  yaw={yaw_deg:+.1f}°  "
-              #    f"qx={qx:.3f} qy={qy:.3f} "
-               #   f"qz={qz:.3f} qw={qw:.3f}")
-
         # -------------------------------------------------------
-        # SIGUE USANDO send_extpos — sin cambios al vuelo
+        #  send_extpos — sin cambios al vuelo
         # -------------------------------------------------------
         if scf_global is not None:
             scf_global.cf.extpos.send_extpos(
@@ -407,7 +398,7 @@ def fly_trajectory(scf):
         # yaw_cmd = 0.0   # yaw fijo en 0 — estable 
 
         # -----------------------------
-        # LIMITAR VELOCIDAD EN CURVAS (AHORA SÍ)
+        # LIMITAR VELOCIDAD EN CURVAS
         # -----------------------------
       #  max_speed_turn = 0.12
 
