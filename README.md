@@ -14,7 +14,7 @@ Acá se encuentra el script utilizado para leer los marcadores de los obstáculo
 Al ejecutar el archivos 'read_waypoints.m' este genera un archivo 'waypoints.json' el cual se debe reemplazar por el de 'Code_V1'. A partir de ese archivo se genera la trayectoria.
 
 Nota:
-Si se desea colocar los puntos de paso (waypoints) manualmente, se puede ejecutar el código de python 'crate_waypoints' el cual también genera un archivo 'waypoints.json', este ya se encuentra dentro de 'Code_V1'.
+Si se desea colocar los puntos de paso (waypoints) manualmente, se puede ejecutar el código de python 'create_waypoints' el cual también genera un archivo 'waypoints.json', este ya se encuentra dentro de 'Code_V1'.
 
 Webots:
 En esta carpeta se puede encontrar el controlador y el script necesario para ejecutar la simulación del vuelo.
