@@ -45,7 +45,8 @@ def connect(uri):
         pose_log_config.add_variable('stateEstimate.pitch', 'float')
         pose_log_config.add_variable('stateEstimate.yaw', 'float')
 
-        pose_data = {'x': 0, 'y': 0, 'z': 0, 'roll': 0, 'pitch': 0, 'yaw': 0}
+        pose_data = {'x': 0, 'y': 0, 'z': 0, 'roll': 0, 'pitch': 0, 'yaw': 0,
+                    'vbat': 0.0}
 
         def pose_callback(timestamp, data, logconf):
             pose_data.update({
@@ -61,9 +62,25 @@ def connect(uri):
         scf.cf.log.add_config(pose_log_config)
         pose_log_config.start()
 
-        # Guardar el logger y los datos en el objeto
-        scf.pose_logger = pose_log_config
-        scf.pose_data = pose_data
+        # --- Logger separado para batería ---
+        # Bloque aparte porque el de pose ya tiene 6 floats (~24 bytes) y
+        # está cerca del límite de tamaño de un solo bloque de log del
+        # firmware (~26 bytes) — agregar una 7ma variable ahí lo hacía
+        # fallar la conexión con "log configuration is too large".
+        battery_log_config = LogConfig(name='Battery', period_in_ms=500)
+        battery_log_config.add_variable('pm.vbat', 'float')
+
+        def battery_callback(timestamp, data, logconf):
+            pose_data['vbat'] = data['pm.vbat']
+
+        battery_log_config.data_received_cb.add_callback(battery_callback)
+        scf.cf.log.add_config(battery_log_config)
+        battery_log_config.start()
+
+        # Guardar los loggers y los datos en el objeto
+        scf.pose_logger    = pose_log_config
+        scf.battery_logger = battery_log_config
+        scf.pose_data      = pose_data
 
         scf.cf.param.set_value('stabilizer.estimator', '2')  # 2 = Kalman
         # --- Reiniciar el estimador Kalman ---
@@ -100,6 +117,9 @@ def disconnect(scf):
             if hasattr(scf, 'pose_logger'):
                 scf.pose_logger.stop()
                 scf.pose_logger.delete()
+            if hasattr(scf, 'battery_logger'):
+                scf.battery_logger.stop()
+                scf.battery_logger.delete()
             scf.close_link()
             print(f"Successfully disconnected from Crazyflie.")
         else:

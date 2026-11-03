@@ -51,7 +51,6 @@ cmap     = cm.RdYlGn
 norm     = mcolors.Normalize(vmin=Z_MIN, vmax=Z_MAX)
 cb       = matplotlib.colorbar.ColorbarBase(ax_cb, cmap=cmap, norm=norm,
                                              orientation='vertical')
-cb.set_label('Altura Z [m]', fontsize=9)
 
 # --------------------------------------------------
 # DIBUJO
