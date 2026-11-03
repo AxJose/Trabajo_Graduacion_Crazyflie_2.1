@@ -1,5 +1,6 @@
+Dentro de la carpeta Software se encuentran las siguientes carpetas: Python, MATLAB y Webots. En estas carpetas se encuentran los scripts desarrollados y utilizados durante la implementación y validación experimental del proyecto.
+
 Python:
-En esta carpeta se encuentran los scripts desarrollados y utilizados durante la implementación y validación experimental del proyecto.
 El archivo principal del proyecto es “flight_purepursuit.py”, el cual implementa el sistema completo de generación y seguimiento de trayectorias basado en splines Catmull-Rom y el algoritmo Pure Pursuit.
 Se recomienda descargar la carpeta completa (Code_V1) para ejecutar las pruebas correctamente, ya que el archivo principal depende de módulos adicionales relacionados con generación de trayectorias, control de seguimiento, comunicación y visualización de resultados.
 
