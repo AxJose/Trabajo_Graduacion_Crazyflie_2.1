@@ -6,6 +6,9 @@ Se recomienda descargar la carpeta completa (Code_V1) para ejecutar las pruebas 
 
 Dentro de Code_V1(Lineal) y Code_V2(C-R) se encuentra únicamente el archivo 'flight_purepursuit', este se debe reemplazar por el que está en 'Code_V1'. La única diferencia es que ya tiene algunos parámetros de velocidad definidos que son los que se utilizaron para hacer las pruebas en el ecosistema Robotat.
 
+Nota:
+La carpeta 'Code_V1' corresponde al modo de vuelo estable, con una velocidad mas lenta. La carpeta 'Code_V1 (Lineal)' corresponde el método con trayectorias lineales en lugar de Catmull-Rom y la carpeta 'Code_V2(C-R)' es la versión rápida de 'Code_V1', solo se cambiaron algunos parametros de velocidades y aceleraciones.
+
 MATLAB:
 Acá se encuentra el script utilizado para leer los marcadores de los obstáculos utilizando el sistema de captura del laboratorio Robotat. 
 Al ejecutar el archivos 'read_waypoints.m' este genera un archivo 'waypoints.json' el cual se debe reemplazar por el de 'Code_V1'. A partir de ese archivo se genera la trayectoria.
